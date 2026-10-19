@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aquatic Exercises | Topic Booking</title>
+<style>
+:root{--navy:#102a43;--blue:#147d92;--cyan:#36c5d8;--ink:#183247;--muted:#647b8b;--bg:#f3f8fb;--line:#dce8ee;--green:#16845b;--red:#b93838}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.hero{background:radial-gradient(circle at 85% 10%,#2db4c7 0,transparent 28%),linear-gradient(135deg,#102a43,#14566d);color:#fff;padding:42px 20px 58px}.wrap{max-width:1160px;margin:auto}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800;color:#a8edf2}
+h1{font-size:clamp(30px,5vw,47px);line-height:1.08;margin:12px 0}.hero p{max-width:680px;color:#d6eaf0;line-height:1.65;margin:14px 0 0}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.stat{background:#ffffff16;border:1px solid #ffffff2b;border-radius:14px;padding:12px 16px;min-width:130px}.stat strong{display:block;font-size:23px}.stat span{font-size:12px;color:#d6eaf0}
+main{max-width:1160px;margin:-24px auto 50px;padding:0 18px;position:relative}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);padding:15px 18px;border-radius:16px;box-shadow:0 8px 28px #12384b0c;margin-bottom:22px}
+.toolbar p{margin:0;color:var(--muted);font-size:14px}.filters{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;border:0;cursor:pointer;border-radius:10px;padding:11px 15px;font-weight:750;transition:.2s}.filter{background:#edf4f7;color:#35566a}.filter.active{background:var(--navy);color:#fff}.primary{background:var(--blue);color:white}.primary:hover{background:#0e6879}.secondary{background:#edf4f7;color:var(--navy)}.danger{background:#fff0ef;color:var(--red)}button:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 7px 24px #12384b08;display:flex;flex-direction:column}
+.card-top{padding:20px 20px 15px;background:linear-gradient(135deg,#e9f8fa,#f7fbfd);border-bottom:1px solid var(--line)}.num{font-size:11px;font-weight:850;letter-spacing:1.4px;color:var(--blue);text-transform:uppercase}
+.card h2{font-size:18px;line-height:1.4;margin:10px 0 13px;color:var(--navy)}.pill{display:inline-flex;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;background:#e7f7ef;color:var(--green)}.pill.full{background:#fff0ef;color:var(--red)}
+.card-body{padding:17px 20px 20px;display:flex;flex-direction:column;gap:14px;flex:1}.capacity-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}.capacity-row strong{color:var(--ink)}
+.track{height:7px;border-radius:10px;background:#e7eef2;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:10px}
+.member-list{margin:0;padding:0 20px 0 0;list-style:none;display:grid;gap:7px}.member-list li{font-size:13px;line-height:1.5;padding:8px 10px;background:#f5f9fb;border-radius:8px;overflow-wrap:anywhere}.member-list li:first-child{border-right:3px solid var(--blue)}.leader{font-size:11px;color:var(--blue);font-weight:800;margin-right:5px}
+.member-preview{font-size:13px;color:var(--muted);line-height:1.55}.card-actions{margin-top:auto;display:flex;gap:8px}.card-actions button{flex:1}
+.note{margin:20px 0 0;color:var(--muted);font-size:13px;line-height:1.6}
+footer{text-align:center;padding:24px;color:#708797;font-size:12px}
+.modal-backdrop{position:fixed;inset:0;background:#071b2bd1;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:20px;width:min(100%,650px);max-height:92vh;overflow:auto;box-shadow:0 20px 80px #0004}
+.modal-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.modal-head h2{margin:0;font-size:21px;color:var(--navy)}.modal-head p{margin:7px 0 0;color:var(--muted);font-size:13px;line-height:1.5}.close{background:#eef4f7;color:#35566a;padding:8px 11px}
+.modal-content{padding:22px 24px}label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#35566a}input,select{width:100%;font:inherit;padding:12px 13px;border:1px solid #cfdee6;border-radius:10px;background:#fbfdfe;color:var(--ink);outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #147d9218}.field{margin-bottom:16px}.members{display:grid;grid-template-columns:1fr 1fr;gap:12px}.help{font-size:12px;color:var(--muted);margin-top:6px}.modal-footer{padding:16px 24px 23px;display:flex;gap:10px;justify-content:flex-end}
+.admin-panel{display:none;background:white;border:1px solid var(--line);border-radius:18px;padding:20px;margin:0 0 22px}.admin-panel.show{display:block}.admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.admin-head h2{margin:0;color:var(--navy)}.admin-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}.admin-table th,.admin-table td{text-align:right;padding:11px;border-bottom:1px solid var(--line);vertical-align:top}.admin-table th{color:#547080;background:#f5f9fb}.table-wrap{overflow-x:auto}
+.admin-login{display:none;background:white;border:1px solid var(--line);border-radius:18px;padding:22px;margin:0 0 22px}.admin-login.show{display:block}.admin-login form{max-width:420px}.admin-login h2{margin-top:0;color:var(--navy)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#102a43;color:#fff;padding:13px 18px;border-radius:12px;box-shadow:0 10px 30px #0003;display:none;z-index:20;font-size:14px;max-width:90vw}.toast.show{display:block}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:570px){.grid{grid-template-columns:1fr}.hero{padding-top:34px}.members{grid-template-columns:1fr}.toolbar{align-items:flex-start}.admin-table{min-width:620px}}
+</style></head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="eyebrow">Aquatic Therapy • Team Topic Selection</div><h1>Choose your topic.<br>Build your team.</h1>
+<p>Reserve one of six presentation slots. Each topic has two team options: one team of 6 students and one team of 5 students. After booking, all team members' names will appear below the topic.</p>
+<div class="stats"><div class="stat"><strong>6</strong><span>Team slots</span></div><div class="stat"><strong>33</strong><span>Student places</span></div><div class="stat"><strong id="reservedStat">0 / 6</strong><span>Slots reserved</span></div><div class="stat"><strong id="studentsStat">0 / 33</strong><span>Places assigned</span></div></div>
+</div></header>
+<main>
+<section class="toolbar"><p>Select a team size, then reserve an available slot.</p><div class="filters"><button class="filter active" data-filter="all">All topics</button><button class="filter" data-filter="6">Teams of 6</button><button class="filter" data-filter="5">Teams of 5</button><button class="secondary" id="adminToggle">Admin panel</button></div></section>
+<section class="admin-login" id="adminLogin"><h2>Administrator sign in</h2><p class="note">Sign in to view, manage, or cancel reservations.</p><form id="adminLoginForm"><div class="field"><label for="adminEmail">Email</label><input type="email" id="adminEmail" required autocomplete="username"></div><div class="field"><label for="adminPassword">Password</label><input type="password" id="adminPassword" required autocomplete="current-password"></div><button class="primary" type="submit">Sign in</button></form></section>
+<section class="admin-panel" id="adminPanel"><div class="admin-head"><h2>Reservation management</h2><div><button class="secondary" id="exportBtn">Export CSV</button> <button class="secondary" id="logoutBtn">Sign out</button></div></div><p class="note">Manage team bookings here. Changes are saved in this browser.</p><div class="table-wrap" id="adminTable"></div></section>
+<section class="grid" id="topicGrid" aria-live="polite"></section>
+<p class="note"><strong>Important:</strong> The roster contains 34 names, while the six slots have 33 places, so one person will remain unassigned if everyone is selected only once. This demo saves data in this browser only. For shared live booking across students' phones, it needs a database/backend and secure server-side admin authentication.</p>
+</main><footer>Aquatic Exercises • Topic Booking Portal</footer>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal">
+<div class="modal-head"><div><h2 id="modalTitle">Reserve a team slot</h2><p id="modalSubtitle"></p></div><button class="close" id="closeModal" aria-label="Close">✕</button></div>
+<form id="bookingForm"><div class="modal-content"><div class="field"><label for="teamName">Team name</label><input id="teamName" required maxlength="60" placeholder="e.g. Aqua Team"></div><div class="field"><label for="leaderName">Team leader</label><select id="leaderName" required></select><div class="help">Choose the team leader from the class roster.</div></div><div class="field"><label>Team members</label><div class="members" id="memberFields"></div><div class="help" id="memberHelp"></div></div><div class="field"><label for="contact">Contact (optional)</label><input id="contact" maxlength="80" placeholder="Email or phone number"></div></div>
+<div class="modal-footer"><button type="button" class="secondary" id="cancelModal">Cancel</button><button type="submit" class="primary">Confirm reservation</button></div></form>
+</div></div><div class="toast" id="toast" role="status"></div>
+<script>
+const roster = ["محمد ابو المجد محمود محمد عبدالباري", "محمد احمد ابراهيم احمد الطوخي", "محمد احمد جابر محمود محمد مكي", "محمد احمد عبد الخالق الشربيني عبد الخالق", "محمد احمد عبد المحسن فتحي جودة", "محمد احمد محمد احمد احمد", "محمد احمد محمد محمود عبد الجواد", "محمد اشرف سليم السعافين (وافد)", "محمد جمال عبد الرحمن الطنطاوي", "محمد حسام محمد المصيلحي مصطفى", "محمد خلاف محمد عبد الجواد", "محمد رمضان غريب حسن", "محمد شعبان السيد صالح عبده", "محمد عايد عبدون محمد عثمان (وافد)", "محمد عباس محمد سعيد (وافد)", "محمد عبد العال محمد حسانين (ش.م)", "محمد عبد اللطيف محمد الصادق محمود مرسي", "محمد عبده عبد الكريم عبدالعاطي", "محمد كرم محمد محمد النجار", "محمد مجدي شوقي عبد الهادي سيد", "محمد ناجح جميل جعبري (وافد)", "محمد ناجي محمد عبد الحليم احمد", "محمد هشام محمد محمود مصطفى المنشاوي", "محمود احمد حسين شمروخ جمعه", "محمود غانم شندي غانم", "محمود كمال عبدالعال عبد الله", "مدحت علاء عبد العزيز عنتر محمد", "مروان اشرف سيد اسحق اسماعيل", "مصطفى ربيع السيد احمد", "مصطفى محمد شبل عبد الرازق", "معاذ اسامه السيد محمود مصطفى", "معاذ ياسر على على حسن عامر", "معتز محمود قطب محمد احمد", "معتصم صلاح محمد علي زويل"];
+const topics = [
+{id:1,title:"Aquatic exercises in neural rehabilitation.",size:6},
+{id:2,title:"Aquatic exercises in neural rehabilitation.",size:5},
+{id:3,title:"Aquatic exercises in geriatric cases",size:6},
+{id:4,title:"Aquatic exercises in geriatric cases",size:5},
+{id:5,title:"Aquatic exercises in pediatric cases.",size:6},
+{id:6,title:"Aquatic exercises in pediatric cases.",size:5}
+];
+const STORAGE_KEY="aquaticTopicBookings_v2";
+const ADMIN_EMAIL="mahmoudshamroukh90@gmail.com";
+const ADMIN_PASSWORD="25111999"; // Demo only: client-side credentials are not secure for a public website.
+let bookings=loadBookings(), activeSlot=null, currentFilter="all", adminSignedIn=false;
+const grid=document.getElementById("topicGrid"), backdrop=document.getElementById("modalBackdrop");
+function loadBookings(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return {};}}
+function saveBookings(){localStorage.setItem(STORAGE_KEY,JSON.stringify(bookings));}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function assignedNames(exceptId=null){return new Set(Object.entries(bookings).filter(([id])=>String(id)!==String(exceptId)).flatMap(([,b])=>b.members||[]));}
+function availableRoster(exceptId=null){const used=assignedNames(exceptId);return roster.filter(n=>!used.has(n));}
+function render(){
+ const visible=topics.filter(t=>currentFilter==="all"||String(t.size)===currentFilter);
+ grid.innerHTML=visible.map(t=>{
+  const b=bookings[t.id], reserved=!!b, pct=reserved?100:0;
+  const memberHtml=reserved?`<ul class="member-list">${b.members.map((m,i)=>`<li>${esc(m)}${i===0?'<span class="leader">TEAM LEADER</span>':""}</li>`).join("")}</ul>`:`<div class="member-preview">No team has reserved this slot yet.</div>`;
+  return `<article class="card"><div class="card-top"><div class="num">Team slot ${String(t.id).padStart(2,"0")} · ${t.size} students</div><h2>${esc(t.title)}</h2><span class="pill ${reserved?"full":""}">${reserved?"Reserved":"Available"}</span></div>
+  <div class="card-body"><div><div class="capacity-row"><span>Team capacity</span><strong>${reserved?t.size:0} / ${t.size}</strong></div><div class="track"><div class="fill" style="width:${pct}%"></div></div></div>${memberHtml}
+  <div class="card-actions">${reserved?`<button class="secondary" onclick="viewBooking(${t.id})">Team details</button>${adminSignedIn?`<button class="danger" onclick="cancelBooking(${t.id})">Cancel</button>`:""}`:`<button class="primary" onclick="openBooking(${t.id})">Reserve this slot</button>`}</div></div></article>`;
+ }).join("");
+ const reservedCount=Object.keys(bookings).length, students=Object.values(bookings).reduce((n,b)=>n+(b.members||[]).length,0);
+ document.getElementById("reservedStat").textContent=`${reservedCount} / 6`;
+ document.getElementById("studentsStat").textContent=`${students} / 33`;
+ if(adminSignedIn)renderAdminTable();
+}
+function openBooking(id){
+ activeSlot=topics.find(t=>t.id===id);if(!activeSlot||bookings[id])return;
+ const options=availableRoster();
+ if(options.length<activeSlot.size){showToast("Not enough unassigned names remain for this team size.");return;}
+ document.getElementById("modalTitle").textContent="Reserve a team slot";
+ document.getElementById("modalSubtitle").textContent=`${activeSlot.title} · ${activeSlot.size} students`;
+ document.getElementById("teamName").value="";document.getElementById("contact").value="";
+ const leader=document.getElementById("leaderName");
+ leader.innerHTML='<option value="">Choose team leader</option>'+options.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("");
+ buildMemberFields();leader.onchange=buildMemberFields;
+ backdrop.classList.add("show");
+}
+function buildMemberFields(){
+ if(!activeSlot)return;
+ const leader=document.getElementById("leaderName").value;
+ const used=availableRoster(activeSlot.id);
+ const rest=used.filter(n=>n!==leader);
+ const fields=document.getElementById("memberFields");
+ fields.innerHTML=Array.from({length:activeSlot.size-1},(_,i)=>`<div><label for="member${i+1}">Member ${i+2}</label><select id="member${i+1}" required><option value="">Choose student</option>${rest.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("")}</select></div>`).join("");
+ fields.querySelectorAll("select").forEach(sel=>sel.addEventListener("change",()=>{
+  const chosen=[leader,...Array.from(fields.querySelectorAll("select")).map(s=>s.value).filter(Boolean)];
+  fields.querySelectorAll("select").forEach(s=>Array.from(s.options).forEach(o=>{if(o.value)o.disabled=chosen.includes(o.value)&&s.value!==o.value;}));
+ }));
+ document.getElementById("memberHelp").textContent=`Select ${activeSlot.size-1} different members. The team leader counts as one of the ${activeSlot.size} students.`;
+}
+function closeModal(){backdrop.classList.remove("show");activeSlot=null;}
+function viewBooking(id){const b=bookings[id];if(!b)return;alert(`${topics.find(t=>t.id===id).title}\nTeam: ${b.teamName}\nLeader: ${b.leaderName}\nMembers:\n${b.members.map((m,i)=>`${i+1}. ${m}`).join("\n")}\nContact: ${b.contact||"Not provided"}`);}
+function cancelBooking(id){if(!adminSignedIn){showToast("Please sign in as administrator.");return;}if(!bookings[id])return;if(confirm("Cancel this reservation? The slot and student names will become available again.")){delete bookings[id];saveBookings();render();showToast("Reservation cancelled.");}}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800);}
+document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",()=>{currentFilter=btn.dataset.filter;document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b===btn));render();}));
+document.getElementById("bookingForm").addEventListener("submit",e=>{
+ e.preventDefault();if(!activeSlot)return;
+ const teamName=document.getElementById("teamName").value.trim(), leader=document.getElementById("leaderName").value;
+ const selected=Array.from({length:activeSlot.size-1},(_,i)=>document.getElementById(`member${i+1}`).value);
+ const members=[leader,...selected];
+ if(!teamName||!leader||selected.some(x=>!x)||new Set(members).size!==activeSlot.size){showToast("Choose a team name and a different student for every place.");return;}
+ if(bookings[activeSlot.id]){showToast("This slot has already been reserved.");closeModal();render();return;}
+ const available=new Set(availableRoster());if(members.some(n=>!available.has(n))){showToast("One of these students has already joined another team. Please try again.");buildMemberFields();return;}
+ bookings[activeSlot.id]={teamName,leaderName:leader,members,contact:document.getElementById("contact").value.trim(),reservedAt:new Date().toISOString()};
+ saveBookings();closeModal();render();showToast("Team reserved successfully. Members are now shown under the topic.");
+});
+document.getElementById("closeModal").onclick=closeModal;document.getElementById("cancelModal").onclick=closeModal;
+backdrop.addEventListener("click",e=>{if(e.target===backdrop)closeModal();});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+document.getElementById("adminToggle").onclick=()=>{
+ if(adminSignedIn){document.getElementById("adminPanel").classList.toggle("show");return;}
+ document.getElementById("adminLogin").classList.toggle("show");
+};
+document.getElementById("adminLoginForm").addEventListener("submit",e=>{
+ e.preventDefault();const email=document.getElementById("adminEmail").value.trim().toLowerCase(),pass=document.getElementById("adminPassword").value;
+ if(email===ADMIN_EMAIL&&pass===ADMIN_PASSWORD){adminSignedIn=true;document.getElementById("adminLogin").classList.remove("show");document.getElementById("adminPanel").classList.add("show");render();showToast("Admin signed in.");}
+ else showToast("Email or password is incorrect.");
+});
+document.getElementById("logoutBtn").onclick=()=>{adminSignedIn=false;document.getElementById("adminPanel").classList.remove("show");render();showToast("Signed out.");};
+function renderAdminTable(){
+ const rows=topics.filter(t=>bookings[t.id]).map(t=>{const b=bookings[t.id];return `<tr><td>${t.id}</td><td>${esc(t.title)}</td><td>${t.size}</td><td>${esc(b.teamName)}</td><td>${b.members.map(esc).join("<br>")}</td><td><button class="danger" onclick="cancelBooking(${t.id})">Cancel</button></td></tr>`;}).join("");
+ document.getElementById("adminTable").innerHTML=rows?`<table class="admin-table"><thead><tr><th>Slot</th><th>Topic</th><th>Size</th><th>Team</th><th>Members</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table>`:"<p class='note'>No reservations yet.</p>";
+}
+document.getElementById("exportBtn").onclick=()=>{
+ const rows=[["Slot","Topic","Team size","Team name","Team leader","Members","Contact"]];
+ topics.filter(t=>bookings[t.id]).forEach(t=>{const b=bookings[t.id];rows.push([t.id,t.title,t.size,b.teamName,b.leaderName,b.members.join(" | "),b.contact||""]);});
+ const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");
+ const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="aquatic-topic-bookings.csv";a.click();URL.revokeObjectURL(url);
+};
+render();
+</script></body></html>

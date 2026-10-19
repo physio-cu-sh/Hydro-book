@@ -1,0 +1,15 @@
+HOW TO MAKE THIS A REAL SHARED WEBSITE
+
+The included index.html is a working front-end demo. To publish a shared, production-ready version, it must be connected to a hosting account and a database. I cannot create a live URL inside your personal hosting account unless you connect/authorize the hosting builder.
+
+Recommended route: connect Lovable when prompted in ChatGPT, then ask it to create and publish the Aquatic Topic Booking app using the supplied index.html and roster. Use a real database (Supabase) for shared reservations and server-side admin authentication.
+
+Before public launch:
+1. Create a Supabase project.
+2. Store the roster and the six slots in the database.
+3. Enforce unique student membership across all teams in the database (not only in the browser).
+4. Use Supabase Auth for the admin account. Do NOT hard-code the admin password in public JavaScript.
+5. Enable row-level security and restrict cancellation/export/admin functions to the authenticated admin.
+6. Deploy to a public hosting provider and test reservations from two separate devices.
+
+The current demo credentials are only for local demonstration and must be replaced with a secure server-side admin account before launch.
